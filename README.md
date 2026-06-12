@@ -5,8 +5,6 @@ Write one request, run it across several LLMs at once, and compare the answers
 side by side — with live latency, token, and cost readouts, plus quality scores
 whose reliability has been *measured against human judgment*.
 
-<!-- Replace with your own screenshot of the three-column view -->
-![Prism — three-column comparison view](docs/screenshot.png)
 
 ---
 
@@ -23,11 +21,13 @@ trust, because it was validated against 93 human ratings rather than assumed.
   concurrently and streams into side-by-side columns. A slow or failing model
   never blocks the others.
 - **Per-model prompt optimization** — each request is transformed into a
-  model-specific prompt (Claude-style XML structure, GPT-style brief, etc.); the
-  exact prompt each model received is inspectable in the UI.
+  model-specific prompt; the exact prompt each model received is inspectable.
 - **Live metrics** — latency, input to output tokens, and cost per response.
 - **A validated evaluator** — a Python service scores each response, and the
   scoring was *calibrated against human ratings* (see results below).
+- **Workspace UI** — a conversation-style composer at the bottom, a saved
+  history of past runs (click any to reload the full comparison), and a
+  light / warm-dark theme toggle.
 - **Provider-agnostic** — runs on free OpenRouter models out of the box; any
   OpenAI-compatible endpoint (OpenRouter, Groq, native OpenAI) is a config change.
 
@@ -50,7 +50,7 @@ trust, because it was validated against 93 human ratings rather than assumed.
 
 | Layer           | Stack                              | Responsibility                                         |
 | --------------- | ---------------------------------- | ------------------------------------------------------ |
-| `client/`       | React, Vite, TypeScript, Tailwind  | Console UI, side-by-side streaming columns             |
+| `client/`       | React, Vite, TypeScript, Tailwind  | Console UI, side-by-side streaming columns, theming    |
 | `gateway/`      | Node, Express, TypeScript          | Prompt optimization, concurrent fan-out, SSE streaming |
 | `eval-service/` | Python, FastAPI                    | Response scoring (heuristics + optional LLM judge)     |
 | `lab/`          | Python (pandas/numpy/matplotlib)   | Calibration: batch runner + human-rating analysis      |
@@ -89,9 +89,9 @@ Optional quality scoring (separate terminal):
 
 ```bash
 cd eval-service
-python -m venv .venv && .venv\Scripts\Activate.ps1   # macOS/Linux: source .venv/bin/activate
-pip install -r requirements.txt
-uvicorn app.main:app --reload --port 8000
+python -m venv .venv
+.venv\Scripts\python.exe -m pip install -r requirements.txt
+.venv\Scripts\python.exe -m uvicorn app.main:app --port 8000
 ```
 
 ---
@@ -125,7 +125,7 @@ What this shows:
   absolute scores. It's a better *relative ranker* than *absolute scorer*.
 - The lexical heuristics are the mirror image — decent linear fit (r=0.53),
   weak ranking (rho=0.23) — strongest where length/structure are good proxies.
-- By human rating the three free models are close (89.4 / 87.9 / 87.0), but the
+- By human rating the three models were close (89.4 / 87.9 / 87.0), but the
   **winner shifts by task** — exactly the case for choosing models per-task
   rather than globally.
 
@@ -135,7 +135,10 @@ What this shows:
 </p>
 
 *Per-task samples are small (n=16-24, indicative); the overall n=93 figures are
-the firm claims.*
+the firm claims. Calibration was run on the trio GPT-OSS 120B / Nemotron 3 Super
+/ Gemma 4 31B; free-tier availability rotates, so the live app's default lineup
+may differ (e.g. Nex N2 Pro in place of Nemotron). Models are a one-line swap in
+`gateway/src/config.ts`.*
 
 ### Reproduce it
 
@@ -160,7 +163,17 @@ python lab/analyze.py --csv lab/results.csv lab/results_hard.csv
    as an `eval` event.
 
 Models and prices live in one file (`gateway/src/config.ts`) — swapping a model
-is a one-line change.
+is a one-line change. Run history and theme are stored in the browser
+(localStorage), so they persist per device.
+
+---
+
+## Deployment
+
+Prism is deploy-ready: the gateway runs as a long-lived streaming server (Render
+free tier) and the frontend deploys as a static build (Vercel), wired together by
+a `VITE_API_BASE` env var. Step-by-step instructions, env values, and
+troubleshooting are in **[DEPLOYMENT.md](DEPLOYMENT.md)**.
 
 ---
 
@@ -173,10 +186,11 @@ Python, FastAPI, pandas / numpy / matplotlib, OpenRouter (OpenAI-compatible).
 
 ```
 prism/
-  client/         React + Vite frontend (the console UI)
-  gateway/        Node/Express gateway (prompt optimization, fan-out, SSE)
-  eval-service/   FastAPI scoring service (heuristics + LLM judge)
-  lab/            Calibration toolkit (batch runner + analysis)
+  client/          React + Vite frontend (the console UI, theming, history)
+  gateway/         Node/Express gateway (prompt optimization, fan-out, SSE)
+  eval-service/    FastAPI scoring service (heuristics + LLM judge)
+  lab/             Calibration toolkit (batch runner + analysis)
+  DEPLOYMENT.md    Render + Vercel deployment guide
   README.md
 ```
 
@@ -185,8 +199,8 @@ prism/
 This project is scoped around two pieces of depth rather than breadth:
 
 - **Systems:** concurrent multi-provider streaming over SSE with per-model
-  partial-failure isolation, a unified provider interface, and a server-side
-  cost guard.
+  partial-failure isolation, a unified provider interface, a server-side cost
+  guard, and a provider-agnostic design (any OpenAI-compatible endpoint).
 - **ML/evaluation:** a scoring harness that separates a deterministic baseline
   from an LLM judge, and — critically — was **calibrated against human ratings**,
   surfacing where the judge is and isn't reliable.
@@ -194,6 +208,6 @@ This project is scoped around two pieces of depth rather than breadth:
 ## Roadmap
 
 - Widen the calibration set further to firm up per-task estimates
-- Run-history persistence and an in-UI results/export view
+- Run-history persistence across devices and an in-UI results/export view
 - Multi-judge agreement (inter-rater reliability between judge models)
 - KaTeX rendering for math-heavy responses
