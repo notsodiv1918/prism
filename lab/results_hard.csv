@@ -1,0 +1,1213 @@
+id,task,model,request,response,heuristic_overall,judge_overall,human_overall
+1,general,GPT-OSS 120B,Explain how the Pythagorean theorem can be derived.,"**Deriving the Pythagorean Theorem ( \(a^{2}+b^{2}=c^{2}\) )**  
+
+Below is a classic geometric proof that uses only elementary shapes—no calculus or advanced algebra is required.
+
+---
+
+### 1. Set‑up: a right‑angled triangle
+
+| Symbol | Meaning |
+|--------|----------|
+| \(a\) | Length of one leg (adjacent side) |
+| \(b\) | Length of the other leg (opposite side) |
+| \(c\) | Length of the hypotenuse (the side opposite the right angle) |
+
+The triangle is right‑angled at the vertex where sides \(a\) and \(b\) meet.
+
+---
+
+### 2. Build a square whose side is the hypotenuse
+
+1. Place four copies of the right‑angled triangle inside a large square of side length \(c\).  
+2. Arrange them so that their hypotenuses form the outer border of the large square, leaving a smaller inner square in the centre.
+
+```
+   +-------------------+
+   | \      |      /   |
+   |   \    |    /     |
+   |     \  |  /       |
+   |-------+-------   |
+   |     /  |  \       |
+   |   /    |    \     |
+   | /      |      \   |
+   +-------------------+
+```
+
+The four triangles are congruent; each has area \(\frac12 ab\).
+
+---
+
+### 3. Compute the area of the large square in two ways  
+
+**Way A – Using side \(c\):**  
+\[
+\text{Area}_{\text{large}} = c^{2}.
+\]
+
+**Way B – As sum of parts:**  
+
+* The four triangles together contribute  
+  \[
+  4\left(\frac12ab\right)=2ab.
+  \]
+
+* The inner square (formed by the legs \(a\) and \(b\)) has side length \(|a-b|\); its area is \((a-b)^{2}\).
+
+Hence  
+\[
+\text{Area}_{\text{large}} = 2ab + (a-b)^{2}.
+\]
+
+---
+
+### 4. Equate the two expressions
+
+\[
+c^{2}=2ab+(a-b)^{2}.
+\]
+
+Expand \((a-b)^{2}\):
+
+\[
+c^{2}=2ab + a^{2} - 2ab + b^{2}.
+\]
+
+The \(+2ab\) and \(-2ab\) cancel, leaving
+
+\[
+\boxed{c^{2}=a^{2}+b^{2}}.
+\]
+
+---
+
+### 5. Why this works
+
+* The construction uses **only** congruent copies of the original right triangle, so no hidden assumptions are made.  
+* Because the total area of a shape does not depend on how we partition it, the two area calculations must be equal—forcing the relationship \(c^{2}=a^{2}+b^{2}\).
+
+---
+
+### 6. Other common derivations (quick overview)
+
+| Method | Idea |
+|--------|------|
+| **Algebraic (similar triangles)** | Drop an altitude from the right angle to the hypotenuse; the two smaller right triangles are similar to the original, yielding ratios that simplify to \(a^{2}+b^{2}=c^{2}\). |
+| **Euclid’s proof (Book I, Prop. 47)** | Uses the concept of *areas of squares on the sides* and the fact that the square on the hypotenuse can be dissected into two rectangles each equal in area to the squares on the legs. |
+| **Rearrangement (dissection)** | Cut the large square of side \(c\) into pieces that can be rearranged to exactly fill the two smaller squares on sides \(a\) and \(b\). |
+| **Coordinate geometry** | Place the right triangle with vertices \((0,0), (a,0), (0,b)\); the distance between \((a,0)\) and \((0,b)\) is \(\sqrt{a^{2}+b^{2}}\). Squaring both sides gives the theorem. |
+
+All of these proofs arrive at the same fundamental truth: **in a right‑angled triangle, the area of the square on the hypotenuse equals the sum of the areas of the squares on the other two sides.**",83.5,90.2,85
+2,general,Nemotron 3 Super,Explain how the Pythagorean theorem can be derived.,"The Pythagorean theorem states that for a right‑angled triangle with legs \(a\) and \(b\) and hypotenuse \(c\),
+
+\[
+a^{2}+b^{2}=c^{2}.
+\]
+
+Below is a classic derivation that uses only the concept of **area** (no trigonometry or calculus required).  
+
+---
+
+### 1. Set‑up
+
+1. Draw a right triangle \( \triangle ABC\) with the right angle at \(C\).  
+   - Let \(AC = a\) (horizontal leg).  
+   - Let \(BC = b\) (vertical leg).  
+   - Let the hypotenuse \(AB = c\).
+
+2. Construct a square whose side length is \(a+b\).  
+   - Place the triangle in each corner of the square so that the legs line up with the sides of the square (see the diagram below).
+
+   ```
+   +-------------------+
+   | \      |      / |
+   |  \ a   |   b /  |
+   |   \    |  /    |
+   |    \   | /     |
+   |     \  |/      |
+   |      \ |       |
+   |       \|       |
+   +-------------------+
+   ```
+
+   (The four right triangles are congruent copies of \( \triangle ABC\); the inner region is a smaller square.)
+
+### 2. Compute the total area in two ways
+
+**Method A – Whole large square**
+
+The large square has side \(a+b\), so its area is  
+
+\[
+\text{Area}_{\text{large}} = (a+b)^{2}=a^{2}+2ab+b^{2}.
+\]
+
+**Method B – Sum of the four triangles + inner square**
+
+Each triangle has area \(\frac{1}{2}ab\). With four of them:
+
+\[
+\text{Area}_{\text{triangles}} = 4\left(\frac{1}{2}ab\right)=2ab.
+\]
+
+The remaining inner figure is a square whose side is the hypotenuse \(c\) (you can see this because the legs of the triangles meet at right angles). Hence its area is  
+
+\[
+\text{Area}_{\text{inner}} = c^{2}.
+\]
+
+Adding these gives the total area of the large square:
+
+\[
+\text{Area}_{\text{large}} = \text{Area}_{\text{triangles}} + \text{Area}_{\text{inner}} = 2ab + c^{2}.
+\]
+
+### 3. Equate the two expressions
+
+\[
+a^{2}+2ab+b^{2}=2ab+c^{2}.
+\]
+
+Cancel the \(2ab\) terms on both sides:
+
+\[
+a^{2}+b^{2}=c^{2}.
+\]
+
+That is precisely the Pythagorean theorem.
+
+---
+
+### Why this works
+
+- The construction guarantees that the four triangles exactly fill the corners of the \((a+b)\times(a+b)\) square, leaving a central region whose sides are all equal to the hypotenuse (by the right‑angle property).  
+- No measurement beyond the lengths \(a,b,c\) is needed; the proof relies solely on additive properties of area.
+
+---
+
+### Alternative derivations (brief overview)
+
+| Method | Core Idea |
+|--------|-----------|
+| **Similar triangles** | Drop an altitude from the right angle to the hypotenuse; the two smaller triangles are similar to the original, yielding proportions that lead to \(a^{2}+b^{2}=c^{2}\). |
+| **Euclid’s proof (Elements I.47)** | Construct squares on each side and show that the area of the square on the hypotenuse equals the sum of the areas of the other two squares by rearranging triangles. |
+| **Proof by rearrangement (Chinese “Gougu”)** | Cut the squares on the legs into pieces that can be re‑assembled to fill the square on the hypotenuse. |
+| **Vector / dot‑product proof** | For vectors \(\mathbf{u},\mathbf{v}\) with \(\mathbf{u}\cdot\mathbf{v}=0\), \(\|\mathbf{u}+\mathbf{v}\|^{2}= \|\mathbf{u}\|^{2}+\|\mathbf{v}\|^{2}\). |
+
+All of these are logically equivalent; the area‑based proof above is often the most intuitive for beginners because it visualizes the theorem directly with squares and triangles.",78,95.5,90
+3,general,Gemma 4 31B,Explain how the Pythagorean theorem can be derived.,"The most intuitive way to derive the Pythagorean theorem ($a^2 + b^2 = c^2$) is through a **geometric area proof** using a large square containing four identical right triangles.
+
+### 1. The Setup
+Imagine a large square. Inside this square, place four identical right triangles. Each triangle has:
+*   Two legs of length **$a$** and **$b$**.
+*   A hypotenuse of length **$c$**.
+
+Arrange these triangles so that their hypotenuses form a smaller square in the center. To do this, the side length of the large outer square must be **$(a + b)$**.
+
+### 2. Calculating the Total Area
+There are two ways to calculate the area of the large outer square:
+
+**Method A: Area of the large square as a whole**
+The area of a square is the side length squared.
+$$\text{Total Area} = (a + b)^2 = a^2 + 2ab + b^2$$
+
+**Method B: Sum of the internal parts**
+The large square is composed of four identical right triangles and one smaller inner square.
+*   **Area of the four triangles:** Each triangle has an area of $\frac{1}{2}ab$. Therefore, four triangles equal $4 \times (\frac{1}{2}ab) = 2ab$.
+*   **Area of the inner square:** The side length of the inner square is the hypotenuse $c$. Therefore, its area is $c^2$.
+$$\text{Total Area} = 2ab + c^2$$
+
+### 3. The Algebraic Derivation
+Since both methods calculate the area of the same large square, we can set the equations equal to one another:
+
+$$a^2 + 2ab + b^2 = 2ab + c^2$$
+
+Now, subtract $2ab$ from both sides of the equation:
+
+$$a^2 + b^2 = c^2$$
+
+### Conclusion
+The result shows that the sum of the squares of the two legs ($a^2 + b^2$) is exactly equal to the square of the hypotenuse ($c^2$), proving the theorem.",78,92.9,85
+4,general,GPT-OSS 120B,What is the difference between weather and climate?,"**Weather** is the short‑term state of the atmosphere at a particular place and time.  
+It includes what you experience day‑by‑day or hour‑by‑hour: temperature, humidity, precipitation, wind, cloud cover, etc. Weather can change rapidly—from a sunny morning to an afternoon thunderstorm.
+
+**Climate** is the long‑term average of those weather conditions, typically described over periods of 30 years or more for a given region.  
+It characterizes the typical patterns of temperature, rainfall, seasons, and extreme events that you can expect in that area. Climate tells you what the weather is *generally like* there, not what will happen on any specific day.
+
+| Aspect | Weather | Climate |
+|--------|---------|----------|
+| Time scale | Hours, days, weeks | Decades, centuries, millennia |
+| Focus | Immediate atmospheric conditions | Statistical description of long‑term patterns |
+| Variability | High, rapid changes | Lower, trends and averages dominate |
+| Example | “It’s raining 72 °F in Seattle today.” | “Seattle has a temperate marine climate with mild, wet winters and dry summers.” |
+| Study | Meteorology | Climatology (a branch of Earth science) |
+
+In short: **weather tells you what to wear right now; climate tells you what kind of wardrobe you need for the whole season or lifetime.**",83.5,98.2,98
+5,general,Nemotron 3 Super,What is the difference between weather and climate?,"Weather refers to the short‑term atmospheric conditions—temperature, precipitation, wind, humidity, etc.—in a specific place and time, typically ranging from minutes to days. Climate, by contrast, is the long‑term average of those weather patterns (usually over 30 years or more) for a region, describing the typical conditions, variability, and extremes one can expect. In short, weather is what you experience day‑to‑day; climate is what you expect over seasons, years, or decades.",80,97.2,98
+6,general,Gemma 4 31B,What is the difference between weather and climate?,"The difference between weather and climate is primarily a matter of **time**.
+
+**Weather** refers to the short-term atmospheric conditions in a specific place at a specific time. It changes by the minute, hour, or day. Examples include a sudden rainstorm, a sunny afternoon, or a cold snap over a weekend.
+
+**Climate** is the long-term average of weather patterns in a particular region over a long period, typically 30 years or more. It describes what is ""normal"" or expected for a location. For example, a desert has an arid climate, and the tropics have a humid climate.
+
+In short: **Weather is what you get; climate is what you expect.**",91.5,97.2,98
+7,general,GPT-OSS 120B,Summarize how vaccines train the immune system.,"Vaccines work by presenting a harmless fragment of a pathogen—such as a weakened (live‑attenuated) virus, an inactivated virus, a protein subunit, or a piece of genetic material (mRNA, DNA)—to the immune system. This exposure triggers the body’s defensive processes without causing disease.
+
+1. **Recognition:** Antigen‑presenting cells (e.g., dendritic cells) capture the vaccine antigen and display it on their surface with major‑histocompatibility‑complex (MHC) molecules.
+
+2. **Activation of adaptive immunity:**  
+   * **B cells** recognize the antigen, receive help from T‑helper cells, and differentiate into plasma cells that produce specific antibodies.  
+   * **T cells** (both CD4⁺ helper and CD8⁺ cytotoxic) are activated to coordinate the response and, for CD8⁺ cells, to kill infected cells if the pathogen later appears.
+
+3. **Memory formation:** A portion of the activated B and T cells become long‑lived memory cells. These cells persist in the body for years or a lifetime.
+
+4. **Rapid secondary response:** If the real pathogen later infects the host, the memory B cells quickly generate high‑affinity antibodies, and memory T cells rapidly expand and act, neutralizing the pathogen far more efficiently than during the first encounter.
+
+Thus, vaccines “train” the immune system by safely mimicking infection, prompting it to develop a ready‑to‑go arsenal of antibodies and cellular defenses that can swiftly protect against the actual disease.",85.2,91.5,90
+8,general,Nemotron 3 Super,Summarize how vaccines train the immune system.,"Vaccines introduce a harmless component of a pathogen—such as a weakened or inactivated virus, a viral protein, a polysaccharide, or genetic material encoding an antigen—into the body. This antigen is recognized by the immune system as foreign, prompting innate immune cells (e.g., dendritic cells and macrophages) to capture, process, and present it to adaptive lymphocytes. Helper T cells become activated and release cytokines that stimulate B cells to proliferate and differentiate into plasma cells, which secrete specific antibodies that neutralize the pathogen, and memory B cells that persist for long‑term immunity. Simultaneously, cytotoxic T cells are primed to destroy infected cells expressing the antigen. Memory T and B cells remain circulating, enabling a faster, stronger response upon actual exposure to the disease‑causing organism, thereby providing protection without causing the illness.",76.1,92.2,90
+9,general,Gemma 4 31B,Summarize how vaccines train the immune system.,"Vaccines train the immune system by mimicking a natural infection without causing the actual disease. They introduce a harmless piece of a specific pathogen—such as a weakened virus, an inactive protein, or genetic instructions (mRNA)—known as an **antigen**.
+
+When the vaccine enters the body, the immune system recognizes these antigens as foreign invaders. This triggers a primary immune response where **white blood cells** produce **antibodies** specifically designed to neutralize that particular pathogen.
+
+Crucially, the process creates **memory cells** (B-cells and T-cells). These cells ""remember"" the unique signature of the pathogen. If the person is exposed to the actual disease in the future, the immune system recognizes it immediately and produces a rapid, powerful defense to destroy the pathogen before it can cause serious illness.",83.4,92.2,90
+10,coding,GPT-OSS 120B,Write a Python function that returns the nth Fibonacci number using memoization.,"```python
+def fib(n, _cache={0: 0, 1: 1}):
+    """"""
+    Return the n‑th Fibonacci number using memoization.
+
+    Parameters
+    ----------
+    n : int
+        The index (0‑based) of the Fibonacci number to compute.
+        Must be a non‑negative integer.
+    _cache : dict, optional
+        Internal cache used for memoization.  Users should not provide this
+        argument.
+
+    Returns
+    -------
+    int
+        The n‑th Fibonacci number.
+
+    Examples
+    --------
+    >>> fib(0)
+    0
+    >>> fib(1)
+    1
+    >>> fib(10)
+    55
+    """"""
+    if n < 0:
+        raise ValueError(""n must be a non‑negative integer"")
+
+    # If the value is already cached, return it immediately
+    if n in _cache:
+        return _cache[n]
+
+    # Compute recursively while storing intermediate results in the cache
+    _cache[n] = fib(n - 1, _cache) + fib(n - 2, _cache)
+    return _cache[n]
+
+
+# Simple test harness
+if __name__ == ""__main__"":
+    for i in range(15):
+        print(f""fib({i}) = {fib(i)}"")
+```",88.1,97.2,98
+11,coding,Nemotron 3 Super,Write a Python function that returns the nth Fibonacci number using memoization.,"```python
+def fib(n, memo=None):
+    if memo is None:
+        memo = {}
+    if n in memo:
+        return memo[n]
+    if n <= 1:
+        return n
+    memo[n] = fib(n - 1, memo) + fib(n - 2, memo)
+    return memo[n]
+```",67.8,95.5,70
+12,coding,Gemma 4 31B,Write a Python function that returns the nth Fibonacci number using memoization.,"```python
+def fibonacci(n, memo={}):
+    if n in memo:
+        return memo[n]
+    if n <= 1:
+        return n
+    
+    memo[n] = fibonacci(n - 1, memo) + fibonacci(n - 2, memo)
+    return memo[n]
+```",71.1,92.8,70
+13,coding,GPT-OSS 120B,Write a JavaScript function to debounce another function by a given delay.,"```javascript
+/**
+ * Creates a debounced version of the supplied function.
+ *
+ * @param {Function} fn      The function to debounce.
+ * @param {number}   delay   The debounce delay in milliseconds.
+ * @param {boolean}  immediate (optional) If true, `fn` is invoked on the
+ *                               leading edge instead of the trailing edge.
+ * @returns {Function} A new function that, when called, will postpone
+ *                     execution of `fn` until after `delay` ms have elapsed
+ *                     since the last time it was invoked.
+ */
+function debounce(fn, delay, immediate = false) {
+  let timeoutId = null;
+
+  return function (...args) {
+    const context = this;
+
+    // If we want the function to fire on the leading edge,
+    // call it immediately if there is no pending timeout.
+    if (immediate && !timeoutId) {
+      fn.apply(context, args);
+    }
+
+    // Clear any existing timer so the delay restarts.
+    clearTimeout(timeoutId);
+
+    // Set a new timer to invoke `fn` after the delay.
+    timeoutId = setTimeout(() => {
+      timeoutId = null; // reset for next series of calls
+      // If not using leading edge, invoke on the trailing edge.
+      if (!immediate) {
+        fn.apply(context, args);
+      }
+    }, delay);
+  };
+}
+
+/* -------------------------------------------------
+   Example usage
+---------------------------------------------------*/
+
+// A function that we want to throttle (e.g., handling window resize)
+function onResize(event) {
+  console.log('Resized to', window.innerWidth, 'x', window.innerHeight);
+}
+
+// Debounced version: will run at most once 300ms after the last resize event
+const debouncedResize = debounce(onResize, 300);
+
+// Attach to an event
+window.addEventListener('resize', debouncedResize);
+
+// -------------------------------------------------
+// If you prefer the function to fire on the leading edge:
+//
+// const debouncedResize = debounce(onResize, 300, true);
+```",87.2,97.2,85
+14,coding,Nemotron 3 Super,Write a JavaScript function to debounce another function by a given delay.,"```javascript
+/**
+ * Returns a debounced version of the given function.
+ * @param {Function} func - The function to debounce.
+ * @param {number} delay - The delay in milliseconds.
+ * @returns {Function} A debounced function.
+ */
+function debounce(func, delay) {
+  let timeoutId;
+  return function (...args) {
+    const context = this;
+    clearTimeout(timeoutId);
+    timeoutId = setTimeout(() => {
+      func.apply(context, args);
+    }, delay);
+  };
+}
+```",88,95.5,96
+15,coding,Gemma 4 31B,Write a JavaScript function to debounce another function by a given delay.,"```javascript
+function debounce(func, delay) {
+  let timeoutId;
+
+  return function(...args) {
+    const context = this;
+
+    clearTimeout(timeoutId);
+
+    timeoutId = setTimeout(() => {
+      func.apply(context, args);
+    }, delay);
+  };
+}
+```",82.5,95.5,96
+16,coding,GPT-OSS 120B,Explain what a race condition is and show a small example in pseudocode.,"**Race condition – what it is**
+
+A *race condition* occurs when two (or more) concurrent threads/processes access shared mutable state without proper synchronization, and the program’s correct behavior depends on the order in which those accesses happen. Because the scheduler can interleave the operations in many different ways, the result may be nondeterministic, leading to bugs that appear only intermittently.
+
+Typical symptoms:
+
+* Incorrect final values (e.g., counters end up smaller than expected)
+* Crashes or corrupt data structures
+* Security vulnerabilities (e.g., TOCTOU – “time‑of‑check‑to‑time‑of‑use” bugs)
+
+The core issue is that the *critical section* – the code that manipulates the shared data – is not protected, so overlapping executions “race” each other.
+
+---
+
+### Minimal pseudocode example
+
+The classic illustration is a shared integer counter that several threads try to increment.
+
+```pseudocode
+// global data
+counter = 0          // shared mutable state
+
+// thread routine
+function increment():
+    // ----- begin critical section (but NOT synchronized) -----
+    temp = counter     // 1. read current value
+    temp = temp + 1    // 2. add 1
+    counter = temp     // 3. write back
+    // ----- end critical section --------------------------------
+
+spawn N threads each running increment()  // e.g. N = 2
+wait for all threads to finish
+print(counter)
+```
+
+**Why it may fail**
+
+Assume `counter` starts at `0` and two threads (`T1` and `T2`) run `increment()` concurrently.
+
+| Step | What happens                                    |
+|------|-------------------------------------------------|
+| 1    | T1 reads `counter` → `temp = 0`                |
+| 2    | T2 reads `counter` → `temp = 0`                |
+| 3    | T1 computes `temp = 1`                         |
+| 4    | T2 computes `temp = 1`                         |
+| 5    | T1 writes `counter = 1`                         |
+| 6    | T2 writes `counter = 1` (overwrites T1’s write) |
+
+Both threads performed an increment, but the final value is `1` instead of the expected `2`. The interleaving of the three primitive steps (read‑modify‑write) created a race condition.
+
+---
+
+### Fix with proper synchronization (for contrast)
+
+```pseudocode
+mutex m               // binary lock, initially unlocked
+
+function safe_increment():
+    lock(m)               // acquire exclusive access
+    counter = counter + 1
+    unlock(m)             // release lock
+
+spawn N threads each running safe_increment()
+```
+
+Now the critical section (`counter = counter + 1`) is executed atomically for each thread, guaranteeing that the final value equals the number of increments performed.",86.1,92.9,87
+17,coding,Nemotron 3 Super,Explain what a race condition is and show a small example in pseudocode.,"**Race Condition**
+
+A race condition occurs when two or more threads (or processes) access shared data concurrently, and the outcome of the program depends on the relative timing of their execution. If the accesses are not properly synchronized, the final state of the data can be unpredictable or incorrect.
+
+**Why it happens**
+
+- Multiple threads read a variable, modify it, and write it back without atomicity.
+- The interleaving of read‑modify‑write steps can cause lost updates or corrupted values.
+
+**Pseudocode Example**
+
+```pseudo
+shared counter = 0   // accessed by all threads
+
+thread A:
+    temp = counter   // read
+    temp = temp + 1  // increment
+    counter = temp   // write
+
+thread B:
+    temp = counter   // read
+    temp = temp + 1  // increment
+    counter = temp   // write
+```
+
+*Possible interleaving leading to a lost increment:*
+
+1. A reads `counter` → `temp = 0`
+2. B reads `counter` → `temp = 0` (still sees old value)
+3. A increments → `temp = 1`, writes `counter = 1`
+4. B increments → `temp = 1`, writes `counter = 1`
+
+Result: `counter` ends up as **1** instead of the expected **2**, because one increment was lost.
+
+**Fix (using a lock)**
+
+```pseudo
+lock mutex
+
+thread A:
+    lock(mutex)
+    counter = counter + 1
+    unlock(mutex)
+
+thread B:
+    lock(mutex)
+    counter = counter + 1
+    unlock(mutex)
+```
+
+Now only one thread can read‑modify‑write `counter` at a time, guaranteeing the correct final value.",82.8,97.2,98
+18,coding,Gemma 4 31B,Explain what a race condition is and show a small example in pseudocode.,"### What is a Race Condition?
+
+A **race condition** occurs in multi-threaded or concurrent programming when multiple processes or threads access and manipulate shared data at the same time. The final outcome depends on the specific order (the ""timing"") in which the threads are scheduled to run. 
+
+If the threads execute in an unexpected sequence, the program may produce incorrect results, crash, or behave unpredictably, even though the logic seems correct in a single-threaded context.
+
+---
+
+### Pseudocode Example: The Bank Balance Problem
+
+Imagine two threads attempting to deposit money into the same bank account simultaneously.
+
+**Shared State:**
+`balance = 100`
+
+**The Logic (performed by both Thread A and Thread B):**
+1. Read the current balance.
+2. Add the deposit amount to that value.
+3. Write the new total back to the balance.
+
+#### The ""Race"" Scenario:
+If both threads run at the exact same time, they might overlap like this:
+
+| Time | Thread A (Deposit $50) | Thread B (Deposit $50) | Balance Value |
+| :--- | :--- | :--- | :--- |
+| T1 | Read balance (**100**) | | 100 |
+| T2 | | Read balance (**100**) | 100 |
+| T3 | Calculate 100 + 50 = **150** | | 100 |
+| T4 | | Calculate 100 + 50 = **150** | 100 |
+| T5 | Write balance = **150** | | 150 |
+| T6 | | Write balance = **150** | **150** |
+
+**Expected Result:** $200  
+**Actual Result:** $150
+
+**Why it happened:** Thread B read the balance *before* Thread A had finished updating it. Thread B's update effectively ""overwrote"" Thread A's contribution.
+
+#### Pseudocode Representation:
+
+```python
+# SHARED VARIABLE
+balance = 100
+
+# FUNCTION EXECUTED BY MULTIPLE THREADS
+function deposit(amount):
+    # Step 1: Local copy of the current value
+    current_balance = read(balance) 
+    
+    # Step 2: Increment local copy
+    new_balance = current_balance + amount 
+    
+    # Step 3: Update the shared variable
+    write(balance, new_balance)
+
+# Execution:
+spawn_thread(deposit(50)) # Thread A
+spawn_thread(deposit(50)) # Thread B
+
+# Final balance might be 150 instead of 200
+print(balance) 
+```
+
+### How to fix it?
+To prevent race conditions, programmers use **Mutual Exclusion (Mutex)** or **Locks**. This ensures that only one thread can enter the ""critical section"" of the code at a time.
+
+**Fixed Pseudocode:**
+```python
+lock = Mutex()
+
+function deposit(amount):
+    lock.acquire()          # Thread waits here if another thread has the lock
+    current_balance = read(balance)
+    write(balance, current_balance + amount)
+    lock.release()          # Now other threads can enter
+```",86.1,91.2,90
+19,coding,GPT-OSS 120B,Write a SQL query to find the second-highest salary from an Employees table.,"```sql
+SELECT
+    MAX(salary) AS second_highest_salary
+FROM
+    Employees
+WHERE
+    salary < (SELECT MAX(salary) FROM Employees);
+```",80.9,92.8,80
+20,coding,Nemotron 3 Super,Write a SQL query to find the second-highest salary from an Employees table.,"SELECT IFNULL((SELECT DISTINCT Salary FROM Employees ORDER BY Salary DESC LIMIT 1 OFFSET 1), NULL) AS SecondHighestSalary;",60.8,92.8,60
+21,coding,Gemma 4 31B,Write a SQL query to find the second-highest salary from an Employees table.,"```sql
+SELECT MAX(Salary) AS SecondHighestSalary
+FROM Employees
+WHERE Salary < (SELECT MAX(Salary) FROM Employees);
+```",61.7,95.5,60
+22,content,GPT-OSS 120B,Write a short marketing email for a fitness app launching a 7-day free trial.,"Subject: 🎉 Unlock Your Best Self – 7‑Day Free Trial Starts Now!
+
+Hi [First Name],
+
+Ready to turn your fitness goals into reality? For a limited time, we’re giving you **7 days of full access—absolutely FREE** to the app that makes getting fit fun, personal, and stress‑free.
+
+**What you’ll love during your trial:**
+- **Custom workouts** tailored to your level, schedule, and goals
+- **Smart nutrition plans** with easy‑to‑follow recipes
+- **Live classes** and on‑demand sessions from top trainers
+- **Progress tracking** that turns every rep into measurable results
+- **Community support** – chat, challenge, and cheer with fellow members
+
+**How to get started in 30 seconds:**
+1. Tap the button below
+2. Create your free account
+3. Choose your first workout and start moving!
+
+👉 **[Start My Free Trial]**
+
+No credit card required. Cancel anytime—no strings attached. After your 7‑day trial, you can keep the momentum going with a special 20% discount on any subscription plan, just for you.
+
+Let’s make the next 7 days the start of a healthier, stronger you.
+
+See you inside,
+The [Your App] Team
+
+P.S. Have a question? Reply to this email or hit our 24/7 chat. We’re here to help you crush every goal.",86.5,92.9,90
+23,content,Nemotron 3 Super,Write a short marketing email for a fitness app launching a 7-day free trial.,"**Subject:** Unlock 7 Days of Free Fitness – Start Your Journey Today!
+
+Hi [First Name],
+
+Ready to feel stronger, healthier, and more energized? For a limited time, our brand‑new fitness app is offering a **7‑day free trial**—no credit card required.
+
+During your trial you’ll get:
+- 🏋️‍♀️ Personalized workout plans that adapt to your goals
+- 🍏 Nutrition tips and easy‑to‑follow meal guides
+- 📊 Real‑time progress tracking and motivating challenges
+- 💬 Access to our supportive community and expert coaches
+
+Simply tap the button below, sign up in seconds, and start moving toward the best version of yourself.
+
+[Start My Free Trial]
+
+After 7 days, you can choose to continue with a plan that fits your lifestyle—or cancel anytime, hassle‑free.
+
+Let’s make fitness fun, flexible, and forever yours—starting now.
+
+To your health,  
+The [App Name] Team",82,97.2,99
+24,content,Gemma 4 31B,Write a short marketing email for a fitness app launching a 7-day free trial.,"Subject: Ready to transform? Your 7-day free pass is here! 🚀
+
+Hi [Name],
+
+Stop waiting for ""next Monday"" to start your fitness journey. Whether you want to build lean muscle, increase your flexibility, or just feel more energized, we’re here to help you make it happen.
+
+We are thrilled to announce that **[App Name]** is now offering a **7-day FREE trial!**
+
+Get full, unrestricted access to:
+✅ **Personalized Workout Plans** tailored to your goals.
+✅ **On-Demand Classes** you can do anywhere, anytime.
+✅ **Nutrition Tracking** to fuel your progress.
+✅ **Progress Analytics** to see your gains in real-time.
+
+No commitments. No excuses. Just seven days of feeling your absolute best.
+
+**[Button: Start My Free Trial Now]**
+
+Let’s crush those goals together.
+
+Stay strong,
+
+The [App Name] Team",81.8,97.2,99
+25,content,GPT-OSS 120B,Write three punchy taglines for an eco-friendly water bottle.,"1. “Sip Sustainably—Pure Water, Zero Waste.”  
+2. “Refresh the Planet with Every Drop.”  
+3. “Eco‑Smart Hydration: Better for You, Better for Earth.”",51.4,98,50
+26,content,Nemotron 3 Super,Write three punchy taglines for an eco-friendly water bottle.,"Sip sustainably, one bottle at a time.  
+Refill the planet, not the landfill.  
+Eco‑cool hydration for a greener you.",48.2,94,45
+27,content,Gemma 4 31B,Write three punchy taglines for an eco-friendly water bottle.,"1. Pure water. Zero waste.
+2. Sip sustainably.
+3. Last bottle. Less plastic.",44.2,94,44
+28,content,GPT-OSS 120B,Draft a LinkedIn post announcing you finished a machine learning course.,"🚀 Exciting Milestone Achieved! 🚀
+
+I’m thrilled to share that I’ve just completed the **[Machine Learning Foundations]** course offered by **[Coursera/edX/your institution]**! 🎓✨
+
+Throughout the program, I dived deep into:
+- 📊 Data preprocessing & visualization techniques  
+- 🤖 Supervised & unsupervised learning algorithms  
+- 📈 Model evaluation, hyper‑parameter tuning, and cross‑validation  
+- 🛠️ Hands‑on projects using Python, scikit‑learn, TensorFlow, and real‑world datasets  
+
+A huge thank you to the amazing instructors, fellow participants, and the vibrant data‑science community for their support and insights. This journey has sharpened my analytical mindset and equipped me with practical tools to turn data into actionable intelligence.
+
+💡 What’s next?
+I’m eager to apply these skills to solve real business problems, collaborate on innovative AI projects, and continue learning advanced topics such as deep learning and reinforcement learning.
+
+If you’re working on data‑driven initiatives or have interesting AI challenges, let’s connect! I’d love to explore how we can leverage machine learning to drive impact together.
+
+#MachineLearning #DataScience #ContinuousLearning #AI #Python #ProfessionalGrowth #LifelongLearning",78.8,92.9,80
+29,content,Nemotron 3 Super,Draft a LinkedIn post announcing you finished a machine learning course.,"Excited to share that I’ve completed the [Course Name, e.g., ""Machine Learning Specialization""] on [Platform, e.g., Coursera]!  
+
+This deep dive strengthened my foundation in core ML concepts—supervised/unsupervised learning, model evaluation, and practical implementation using Python (scikit-learn, TensorFlow). Beyond the theory, I tackled hands-on projects that reinforced how to frame real-world problems, preprocess data effectively, and iterate toward meaningful solutions.  
+
+Grateful for the structured learning path and eager to apply these skills to drive impact in [your field/role, e.g., ""data-driven decision-making at [Company] or upcoming ML projects""].  
+
+If you’ve taken this course or have ML insights to share—I’d love to connect and learn from your experiences!  
+
+#MachineLearning #DataScience #Upskilling #ContinuousLearning #AI #ProfessionalDevelopment",77.3,95.5,90
+30,content,Gemma 4 31B,Draft a LinkedIn post announcing you finished a machine learning course.,"Here are three options depending on the ""vibe"" you want to project:
+
+### Option 1: Professional & Detailed (Best for career pivoters)
+**Headline:** Excited to share that I’ve officially completed [Course Name]! 🎓
+
+Over the last [Number] weeks, I’ve been diving deep into the world of Machine Learning, moving from the theoretical foundations to building actual predictive models. 
+
+Key takeaways from the program included:
+✅ [Skill 1, e.g., Supervised vs. Unsupervised Learning]
+✅ [Skill 2, e.g., Neural Networks & Deep Learning]
+✅ [Skill 3, e.g., Model Evaluation and Hyperparameter Tuning]
+
+The highlight for me was my final project where I [mention one sentence about your project, e.g., built a churn prediction model using Scikit-Learn]. It was challenging, but seeing the model achieve [mention a metric, e.g., 85% accuracy] was incredibly rewarding.
+
+A huge thank you to [Instructor Name/Platform Name] for the great content. I’m looking forward to applying these skills to [mention your industry or a specific goal].
+
+#MachineLearning #DataScience #AI #ContinuousLearning #Python #Upskilling
+
+***
+
+### Option 2: Short & Punchy (Best for experienced pros adding a skill)
+**Headline:** Levelled up! 🚀
+
+I just wrapped up [Course Name] to strengthen my understanding of Machine Learning. From understanding linear regression to exploring [Specific Topic], it's been an intense but rewarding journey.
+
+Ready to start implementing these ML techniques to drive better data-driven decisions in my current work at [Company Name].
+
+Check out my certificate below! 👇
+
+#ML #ArtificialIntelligence #Learning #ProfessionalDevelopment #Tech
+
+***
+
+### Option 3: The ""Growth Mindset"" (Best for students/beginners)
+**Headline:** Step by step. 📈
+
+I’m thrilled to announce that I’ve completed [Course Name]! 
+
+Coming into this, [mention a struggle, e.g., the math behind the algorithms] felt intimidating, but by sticking with the coursework and building projects, I’ve gained a new perspective on how AI can solve real-world problems.
+
+The journey doesn't stop here—next on my list is [mention next goal, e.g., mastering PyTorch or entering a Kaggle competition].
+
+Onwards and upwards! 💻
+
+#NewSkills #MachineLearning #CodingJourney #GrowthMindset #STEM",79.4,90.5,80
+31,research,GPT-OSS 120B,Compare REST and GraphQL APIs in terms of when to use each.,"**REST vs. GraphQL – When to Use Which?**
+
+| Aspect | REST API | GraphQL API |
+|--------|----------|--------------|
+### 1. Data Fetching Needs
+| **When you need** | Fixed, well‑defined resources (e.g., CRUD on a single entity). | Highly variable client‑driven queries, needing different fields or nested data in a single request. |
+| **Why** | Each endpoint returns a static representation (e.g., `/users/1`). | The client specifies exactly what shape and depth of data it wants, eliminating over‑/under‑fetching. |
+
+### 2. API Complexity & Evolution
+| **When you need** | Simple, stable contract; few versions; clear cache semantics. | Rapidly evolving schemas, frequent addition of fields, or need for backward‑compatible extensions. |
+| **Why** | Adding new endpoints or query parameters can cause version bloat. | Adding a new field to the schema does not break existing queries; clients just ignore what they don’t request. |
+
+### 3. Tooling & Ecosystem
+| **When you need** | Wide‑range HTTP client support, mature middleware, easy integration with CDNs, static caching, and simple monitoring. | Rich developer tooling (Introspection, GraphQL Playground/Explorer), strong type safety (via schema), and auto‑generated SDKs. |
+| **Why** | REST works out‑of‑the‑box with browsers, curl, Postman, etc. | GraphQL provides a self‑describing schema that many languages can use to generate typed clients. |
+
+### 4. Performance & Bandwidth
+| **When you need** | Simple responses where payload size is predictable, or where CDN edge‑caching of whole resources is essential. | Reduce round‑trips for composite views (multiple resources) and minimize payload for mobile/low‑bandwidth clients. |
+| **Why** | Each URL can be cached at the edge; response size is known. | One request can replace dozens of REST calls, but caching is more granular (per query). |
+
+### 5. Security & Authorization
+| **When you need** | Straightforward, endpoint‑level security (e.g., OAuth scopes per URL). | Fine‑grained, field‑level authorization (e.g., hide salary field from non‑HR users) without extra endpoints. |
+| **Why** | Authorization middleware can be applied per route. | GraphQL resolvers can enforce rules per field, but you must design resolvers carefully to avoid leaking data. |
+
+### 6. Real‑Time & Subscriptions
+| **When you need** | Primarily request/response patterns; occasional polling. | Need for real‑time updates (subscriptions) alongside queries/mutations. |
+| **Why** | REST is stateless; real‑time requires separate WebSocket/Server‑Sent Events layer. | GraphQL spec includes a subscription model that reuses the same schema. |
+
+### 7. Learning Curve & Team Skillset
+| **When you need** | Teams comfortable with HTTP verbs, status codes, and resource modeling. | Teams willing to invest in learning schema definition, resolver architecture, and query language. |
+| **Why** | REST is conceptually simple and familiar. | GraphQL introduces a new query syntax and server plumbing, which can be overhead for small projects. |
+
+### 8. Caching Strategy
+| **When you need** | Leveraging HTTP caching (ETag, Last‑Modified, Cache‑Control) at the CDN/proxy level. | Need for client‑side or CDN‑level caching via persisted queries or Apollo Cache, but not HTTP cache by default. |
+| **Why** | REST responses map directly to cache keys (URL + headers). | GraphQL queries are POST bodies; caching requires explicit mechanisms (e.g., hash of query + variables). |
+
+### 9. Error Handling & Monitoring
+| **When you need** | Clear use of HTTP status codes (404, 500, 422) for diagnostics. | Centralized error format in the `errors` array; need custom mapping to HTTP status for client‑side handling. |
+| **Why** | REST aligns with existing HTTP observability tools. | GraphQL can batch many errors together, which may be harder to correlate with log lines. |
+
+---
+
+## Quick Decision Guide
+
+| Situation | Recommended API |
+|-----------|-----------------|
+| **Standard CRUD for a few resources** | **REST** – simple URLs, HTTP caching works out‑of‑the‑box. |
+| **Mobile app needing only a subset of fields from many related objects** | **GraphQL** – request exactly what you need, cut down bandwidth. |
+| **Dashboard that displays several entities together (user + posts + comments)** | **GraphQL** – one query replaces multiple REST calls. |
+| **Public API where versioning and stable URLs are critical** | **REST** – version in URL (`/v1/`) and explicit contracts. |
+| **Rapid product iteration with frequent field additions** | **GraphQL** – schema evolves without breaking clients. |
+| **Need real‑time updates (e.g., chat, live feeds)** | **GraphQL** (subscriptions) or REST + WebSockets, but GraphQL gives a unified model. |
+| **Highly regulated environment where each endpoint must be audited separately** | **REST** – easier to apply per‑endpoint security audits. |
+| **Team already invested in Apollo/Relay tooling** | **GraphQL** – leverage existing generated types and cache. |
+| **Project with limited time/resources and simple data needs** | **REST** – lower upfront complexity. |
+| **Client‑driven UI where different screens need different slices of data** | **GraphQL** – UI decides shape, server just resolves. |
+
+---
+
+### TL;DR Summary
+- **Use **REST** when you have stable, resource‑oriented endpoints, want straightforward HTTP caching, and prefer minimal server complexity.**
+- **Use **GraphQL** when clients need flexible queries, you want to avoid over/under‑fetching, you expect the schema to evolve quickly, or you need real‑time subscriptions with a single unified API surface.**",86.1,92.2,90
+32,research,Nemotron 3 Super,Compare REST and GraphQL APIs in terms of when to use each.,"**When to Use REST**
+
+- Simple CRUD resources with well‑defined endpoints  
+- Public APIs where caching, versioning, and HTTP status codes are important  
+- When you need stateless, cache‑friendly interactions leveraging HTTP intermediaries  
+- Teams familiar with REST tooling (OpenAPI/Swagger, Postman, etc.)  
+
+**When to Use GraphQL**
+
+- Clients need to fetch varying subsets of related data in a single request (reducing over‑/under‑fetching)  
+- Rapidly evolving front‑end requirements where schema changes should not break existing clients  
+- Complex nested queries or aggregations that would require multiple REST calls  
+- Real‑time updates via subscriptions are desired  
+- Strong type safety and introspection are valuable for developer tooling (GraphQL IDE, autocomplete)  
+
+**Guideline:** Start with REST for straightforward, cache‑oriented services; adopt GraphQL when you need flexible, efficient data fetching for complex, client‑driven applications.",84.1,90.5,90
+33,research,Gemma 4 31B,Compare REST and GraphQL APIs in terms of when to use each.,"### REST (Representational State Transfer)
+
+**When to use REST:**
+
+*   **Simple Data Models:** When your application has a straightforward resource structure where data is accessed in predictable, predefined chunks.
+*   **Heavy Caching Requirements:** When you need to leverage native HTTP caching (CDN, Browser, Proxy) to reduce server load and latency.
+*   **Public-Facing APIs:** When building an API for a wide range of third-party developers. REST is the industry standard, has a lower learning curve, and requires no specialized client libraries.
+*   **Resource-Centric Workflows:** When the primary interaction is standard CRUD (Create, Read, Update, Delete) operations on independent resources.
+*   **Strict Rate Limiting:** When you need easy, granular control over API usage based on specific endpoints (e.g., limiting `/search` more strictly than `/profile`).
+
+---
+
+### GraphQL
+
+**When to use GraphQL:**
+
+*   **Complex/Relational Data:** When your data is highly interconnected (a ""graph"") and a single view requires data from multiple sources (e.g., a User, their Posts, and the Comments on those posts).
+*   **Bandwidth-Constrained Clients:** When building for mobile apps or low-bandwidth environments. GraphQL eliminates **over-fetching** (getting more data than needed) and **under-fetching** (making multiple requests to get all needed data).
+*   **Rapid Frontend Iteration:** When the UI changes frequently. Frontend developers can change the data requirements in the query without needing the backend team to create new endpoints or modify existing ones.
+*   **Aggregation Layers:** When you need a single entry point (gateway) to aggregate data from multiple microservices, databases, or legacy REST APIs.
+*   **Highly Dynamic Requirements:** When different clients (Web, iOS, Android) require different subsets of the same data for the same resource.
+
+---
+
+### Summary Comparison Table
+
+| Feature | REST | GraphQL |
+| :--- | :--- | :--- |
+| **Data Fetching** | Multiple endpoints; fixed data structures. | Single endpoint; client-defined structures. |
+| **Payload** | Often over-fetches or under-fetches. | Precise; fetches exactly what is requested. |
+| **Caching** | Easy via standard HTTP caching. | Complex; requires client-side caching (e.g., Apollo). |
+| **Versioning** | Usually via URL (e.g., `/v1/`, `/v2/`). | Versionless; evolve by adding fields or deprecating old ones. |
+| **Learning Curve** | Low; based on standard HTTP methods. | Moderate; requires learning Schema Definition Language (SDL). |
+| **Error Handling** | Uses standard HTTP status codes (404, 500, etc.). | Usually returns `200 OK` with an `errors` array in the body. |",86.1,89.1,90
+34,research,GPT-OSS 120B,Summarize the main causes of inflation for a non-economist.,"**What drives prices up? A plain‑language guide to the main causes of inflation**
+
+| Cause | How it works (in simple terms) | Everyday example |
+|-------|------------------------------|------------------|
+| **1. Too much money chasing too few goods** (Demand‑pull inflation) | When households, businesses, or the government have extra cash and start spending more than the economy can produce, sellers raise prices because the competition for limited goods intensifies. | A sudden tax cut leaves families with extra disposable income, and everyone rushes to buy cars, houses, and gadgets. Dealerships and builders can’t keep up, so they lift their prices. |
+| **2. Rising costs for producers** (Cost‑push inflation) | If the price of key inputs—wages, raw materials, energy, taxes—goes up, companies protect their profit margins by charging more for their finished products. | Oil prices surge, making gasoline and the cost of transporting goods more expensive; supermarkets then raise grocery prices to cover the higher freight costs. |
+| **3. Expectations that prices will keep rising** (Built‑in or expectations‑driven inflation) | When people (consumers, firms, workers) start to believe inflation is inevitable, they adjust their behavior: workers demand higher wages, firms set higher prices in advance, and banks may raise interest rates. This self‑fulfilling loop keeps inflation alive even if the original shock fades. | A news story reports “inflation is now 7 %,” so employees ask for a 5 % raise, and their employer raises product prices to afford the higher payroll. |
+| **4. Exchange‑rate shocks** (Import‑price inflation) | If a country's currency falls in value, imported goods become more expensive in local terms. Higher import prices push up overall price levels, especially for economies that rely heavily on foreign goods (oil, food, electronics). | The dollar weakens against the euro, making European cars and components cost more in the U.S.; American car dealers raise their prices accordingly. |
+| **5. Fiscal and monetary policy missteps** | *Monetary:* Central banks keep interest rates too low for too long, flooding the economy with cheap credit, which fuels excess spending. <br>*Fiscal:* Large, unfinanced government deficits (e.g., heavy borrowing or printing money) can also add to excess demand or directly increase the money supply. | The central bank keeps rates at 0 % while the government runs a huge stimulus program; households and firms borrow heavily, spend, and push prices up. |
+| **6. Supply‑side shocks** (Sudden drops in supply) | Events that sharply cut the availability of important goods—natural disasters, wars, pandemics, or regulatory changes—reduce output, so the same amount of money now chases fewer items, raising prices. | A severe drought reduces corn harvests, making cereal and animal feed more expensive, which ripples through food prices. |
+| **7. Structural changes & market power** | When a few firms dominate a market (monopolies/oligopolies) or when industries consolidate, they can more easily raise prices without losing many customers. | A few big tech platforms control digital advertising; they increase ad rates, which eventually raise prices for goods sold online. |
+
+### How the pieces fit together
+1. **Demand‑pull** + **cost‑push** often occur together.  
+   *Example:* A booming economy (high demand) meets a rise in oil prices (higher costs), producing a “double‑whammy” on inflation.  
+
+2. **Expectations** act like a thermostat: if people think inflation will stay high, they adjust wages and prices upward, making the forecast come true.  
+
+3. **Policy** can either dampen or amplify the other forces. Tightening interest rates or cutting deficits can cool demand; loosening them can stoke it.  
+
+4. **External shocks** (exchange‑rate moves, wars, pandemics) can trigger cost‑push or supply‑side inflation, sometimes overriding domestic policies for a while.
+
+### Bottom line for a non‑economist
+- **Inflation isn’t caused by a single thing; it’s usually a mix of too much spending, higher production costs, and people’s expectations.**  
+- **When your paycheck feels smaller, think about whether the economy has “too much money,” whether the things you buy have become more expensive to make, or whether everyone just expects prices to keep climbing.**  
+
+Understanding these basic drivers helps you see why governments and central banks watch spending, wages, commodity prices, and public sentiment so closely—and why they sometimes raise interest rates or tighten budgets to keep inflation in check.",91.8,90.7,90
+35,research,Nemotron 3 Super,Summarize the main causes of inflation for a non-economist.,"Inflation — when prices for goods and services rise across the economy — can be caused by several key factors:
+
+- **Too much money chasing too few goods** – When the amount of money in circulation grows faster than the economy’s ability to produce goods and services, people have more purchasing power than there is supply, pushing prices up.
+
+- **Rising production costs** – Increases in wages, raw materials (like oil or metals), energy, or transportation raise the cost of making products; businesses often pass these higher costs on to consumers as higher prices.
+
+- **Strong demand** – When consumer confidence is high, people spend more, and businesses may not be able to ramp up output quickly enough, leading to upward pressure on prices.
+
+- **Supply shocks** – Disruptions such as natural disasters, pandemics, geopolitical conflicts, or trade restrictions can suddenly reduce the availability of key goods (e.g., oil, food, semiconductors), causing prices to spike.
+
+- **Expectations of future inflation** – If businesses and consumers expect prices to keep rising, they may act now (e.g., raising wages, setting higher prices), which can make inflation self‑fulfilling.
+
+- **Currency depreciation** – When a country’s currency loses value relative to others, imported goods become more expensive, contributing to overall price increases.
+
+These factors often work together, and their relative influence can vary over time and across economies.",73.8,88.3,75
+37,research,GPT-OSS 120B,List the trade-offs between SQL and NoSQL databases.,"**SQL (relational) vs. NoSQL (non‑relational) – Key Trade‑offs**
+
+| Dimension | SQL (Relational) | NoSQL (Key‑Value / Document / Column / Graph) |
+|-----------|------------------|------------------------------------------------|
+| **Data Model** | Fixed schema, tables with rows & columns; strong typing & relationships (foreign keys). | Flexible or schema‑less; data stored as documents, key‑value pairs, wide‑column families, or graph edges. |
+| **Schema Evolution** | Schema changes require migrations (DDL) and can lock tables during alteration. | Schemas can evolve per record; addition/removal of fields is painless. |
+| **ACID Guarantees** | Full ACID (Atomicity, Consistency, Isolation, Durability) by default; strong consistency. | Often **BASE** (Basically Available, Soft state, Eventual consistency); some provide ACID at document/collection level (e.g., MongoDB transactions) but typically sacrifice strict consistency for scalability. |
+| **Query Capability** | Powerful declarative SQL with joins, sub‑queries, aggregations, window functions, CTEs. | Query languages vary (e.g., MongoDB query DSL, CQL, Gremlin); joins are limited or require application‑side handling; aggregations may be less expressive or need map‑reduce pipelines. |
+| **Performance (Read/Write)** | Excellent for complex queries across many tables; writes can be slower due to locking, transaction overhead. | Optimized for high‑throughput reads/writes of single‑entity lookups; can scale horizontally with low latency. |
+| **Scalability** | Vertically scalable (scale‑up) with limited sharding support; some RDBMS now support horizontal sharding/partitioning but at higher operational complexity. | Built for horizontal scaling (scale‑out) via automatic sharding, replica sets, and distributed architectures. |
+| **Consistency Model** | Strong (immediate) consistency across the cluster. | Configurable: strong, bounded‑staleness, eventual. Often trade‑off consistency for availability. |
+| **Transaction Scope** | Multi‑row, multi‑table transactions are native. | Transactions may be limited to a single document/partition; cross‑partition transactions are expensive or unavailable. |
+| **Tooling & Ecosystem** | Mature ecosystem: ORM frameworks, reporting/BI tools, mature backup/restore, mature monitoring, SQL standards. | Rapidly growing ecosystem but fragmented; fewer universal admin tools; often need custom tooling for backup, monitoring, and analytics. |
+| **Maturity & Community** | Decades of production use, extensive documentation, proven reliability. | Younger, evolving standards; community support varies by engine (MongoDB, Cassandra, Redis, Neo4j, etc.). |
+| **Use‑Case Fit** | • Strong relational data (financial, ERP, CRM).<br>• Complex reporting/analytics.<br>• Need for strict data integrity and transactions. | • High‑velocity data ingestion (IoT, clickstreams).<br>• Content management, catalogs, user profiles.<br>• Flexible or evolving schemas.<br>• Real‑time personalization, caching, session stores.<br>• Graph traversals (social networks, recommendation engines). |
+| **Operational Complexity** | Simpler in a single‑node or small‑cluster environment; adding nodes/sharding can be complex. | Designed for distributed operation; requires handling of eventual consistency, replica set health, and partition tolerance. |
+| **Cost** | Licensing (if commercial) + hardware for scaling up; open‑source options reduce cost but still need larger machines for heavy load. | Typically runs on commodity hardware or cloud instances; pay‑as‑you‑go scaling can be cheaper for massive workloads. |
+
+### Summary of Trade‑offs
+
+| Trade‑off | SQL Benefits | NoSQL Benefits |
+|-----------|--------------|----------------|
+| **Structure vs. Flexibility** | Rigid schema enforces data quality. | Schema‑less allows rapid iteration. |
+| **Consistency vs. Availability** | Strong consistency & ACID. | Higher availability & partition tolerance, with eventual consistency. |
+| **Complex Queries vs. Simple Lookups** | Powerful joins & analytics. | Fast key‑value or document lookups; limited join support. |
+| **Vertical vs. Horizontal Scaling** | Easier to manage on single server; scaling requires careful sharding. | Native horizontal scaling across many nodes. |
+| **Maturity vs. Innovation** | Proven reliability, tooling. | Cutting‑edge features (e.g., geo‑distribution, built‑in full‑text search). |
+| **Transaction Scope vs. Performance** | Multi‑entity transactions without extra work. | Higher write throughput, but limited transactional scope. |
+
+Choosing between SQL and NoSQL hinges on which side of each trade‑off aligns with your application’s data integrity requirements, query complexity, scaling needs, and development velocity. Often the optimal architecture combines both: a relational store for core business transactions and a NoSQL store for high‑volume, flexible, or graph‑centric workloads.",88.6,92.9,88
+38,research,Nemotron 3 Super,List the trade-offs between SQL and NoSQL databases.,"**SQL Databases**  
+- **Pros**  
+  - Strong ACID guarantees and consistency.  
+  - Mature ecosystem, tooling, and community support.  
+  - Standardized query language (SQL) with powerful joins and complex queries.  
+  - Well‑defined schemas ensure data integrity.  
+
+- **Cons**  
+  - Vertical scaling can become costly and limited.  
+  - Schema changes often require migrations and downtime.  
+  - Performance may degrade with highly unstructured or rapidly changing data.  
+  - Horizontal sharding is complex and not native in many systems.  
+
+**NoSQL Databases**  
+- **Pros**  
+  - Designed for horizontal scaling; easy to add nodes.  
+  - Flexible schema (schema‑less or dynamic) accommodates varied data models.  
+  - Optimized for specific workloads (e.g., key‑value lookups, document storage, graph traversals).  
+  - Often provides high throughput and low latency for large‑scale reads/writes.  
+
+- **Cons**  
+  - Consistency models are often eventual; strong ACID transactions are limited or absent.  
+  - Query capabilities are usually less expressive (no joins, limited ad‑hoc querying).  
+  - Ecosystem and tooling are generally less mature than SQL’s.  
+  - Data modeling requires careful consideration of access patterns; improper design can lead to inefficiencies.",80.2,90.5,85
+40,support,GPT-OSS 120B,A customer says their order arrived damaged. Write a helpful support reply.,"Hi [Customer Name],
+
+I’m very sorry to hear that your order arrived damaged—that’s definitely not the experience we want you to have.
+
+To get this sorted quickly, could you please:
+
+1. **Send us a photo** of the damaged item (or the packaging, if that helps) so we can see exactly what happened.
+2. **Confirm your order number** and the best shipping address for a replacement (or let us know if you’d prefer a refund instead).
+
+Once we have that information, we’ll:
+
+- Ship a replacement right away at no extra cost, **or**
+- Process a full refund if you’d rather keep it that way.
+
+We’ll also investigate with our shipping partner to help prevent this from happening again.
+
+Thank you for your patience, and again I’m sorry for the inconvenience. I look forward to getting this resolved for you as soon as possible.
+
+Best regards,  
+[Your Name]  
+Customer Support Team  
+[Company Name]  
+[Contact Phone] | [Support Email]",82.6,95.5,95
+41,support,Nemotron 3 Super,A customer says their order arrived damaged. Write a helpful support reply.,"Hello,
+
+I’m sorry to hear that your order arrived damaged. Please accept our sincere apologies for the inconvenience this has caused.
+
+To resolve this as quickly as possible, could you please reply with the following details?
+
+- Your order number (found in the confirmation email)
+- Photos of the damaged items and the packaging
+- A brief description of the damage (e.g., torn, broken, missing parts)
+
+Once we have this information, we’ll arrange a replacement shipment or a full refund, whichever you prefer, at no extra cost to you. We’ll also investigate how the damage occurred to prevent similar issues in the future.
+
+Thank you for bringing this to our attention, and we appreciate your patience while we make this right.
+
+Warm regards,  
+[Your Name]  
+Customer Support Team  
+[Company Name]  
+[Contact Email] | [Phone Number]",85.3,92.2,90
+42,support,Gemma 4 31B,A customer says their order arrived damaged. Write a helpful support reply.,"Subject: Regarding your order #[Order Number]
+
+Dear [Customer Name],
+
+I am very sorry to hear that your order arrived damaged. I know how disappointing it is to receive a package in this condition, and I apologize for the inconvenience.
+
+We want to make this right for you immediately. To help us resolve this quickly, could you please reply to this email with:
+
+1. A photo of the damaged item.
+2. A photo of the shipping packaging.
+
+Once we receive these, we can offer you your choice of a **full refund** or a **free replacement** shipped via expedited mail.
+
+Thank you for your patience, and I look forward to hearing from you so we can get this sorted out.
+
+Best regards,
+
+[Your Name]
+[Your Company Name]",81.7,97.2,98
+43,support,GPT-OSS 120B,"A user can't log in after a password reset. Write a calm, step-by-step support reply.","Hi [User],
+
+I’m sorry you’re having trouble logging in after resetting your password. Let’s walk through a few simple steps to get you back in:
+
+1. **Confirm the New Password**  
+   • Make sure you’re entering the exact password you set during the reset (including any capital letters, numbers, or special characters).  
+   • If you copied and pasted it, try typing it manually—sometimes hidden spaces get added.
+
+2. **Check for Typos**  
+   • Double‑check the spelling of your username/email address.  
+   • Verify that **Caps Lock** and **Num Lock** are set the way you expect.
+
+3. **Clear the Login Form**  
+   • Click the **“Clear”** or **“Reset”** button (or manually delete the fields).  
+   • Re‑enter your username/email and the new password.
+
+4. **Try a Different Browser or Private/Incognito Window**  
+   • Occasionally cached data can cause issues. Opening an incognito/private window or another browser (Chrome, Firefox, Edge, Safari, etc.) can rule that out.
+
+5. **Reset the Password Again (if needed)**  
+   • If the above steps don’t work, request another password reset:  
+     1. Go to the login page and click **“Forgot password?”**  
+     2. Enter your email address and follow the link you receive.  
+     3. Choose a **new, strong password** you haven’t used before.  
+   • After resetting, wait a minute for the change to propagate, then try logging in again.
+
+6. **Verify Account Status**  
+   • If your account was recently created or if there have been multiple failed login attempts, it might be temporarily locked. In that case, you’ll see a message indicating the lockout—please let us know and we can unlock it for you.
+
+7. **Check for Two‑Factor Authentication (2FA)**  
+   • If you have 2FA enabled, make sure you’re entering the correct code from your authenticator app or SMS.  
+   • If you can’t receive the code, let us know and we can help reset or temporarily disable 2FA.
+
+8. **Contact Us If It Still Doesn’t Work**  
+   • Reply to this message with:  
+     - The exact error message you see (e.g., “Invalid password,” “Account not found,” etc.).  
+     - The email address or username you’re trying to log in with.  
+     - Any recent changes to your account (e.g., switch of device, new phone number).  
+   • We’ll investigate further and either reset your credentials manually or resolve any underlying issue.
+
+---
+
+**Quick Tips**
+
+- Use a password manager to store the new password and avoid typing errors.  
+- Avoid passwords that are too similar to the old one (some systems reject them).  
+- Make sure your internet connection is stable; a dropped connection can sometimes interrupt the login process.
+
+If you run into any specific error messages or have questions about any of the steps above, just let me know and I’ll be happy to assist further.
+
+Best regards,  
+[Your Name] – Support Team  
+[Company / Service Name]  
+[Support Contact Info]  ",88.2,97.2,98
+44,support,Nemotron 3 Super,"A user can't log in after a password reset. Write a calm, step-by-step support reply.","No worries—let's get this sorted step by step. Password resets can sometimes trip us up with small details, but we’ll work through it calmly. Here’s what to try:
+
+1. **Double-check the password**:  
+   Make sure you’re typing the *new* password from the reset email exactly as shown (it’s case-sensitive!). Avoid copying/pasting if possible—sometimes hidden spaces sneak in. Type it slowly instead.
+
+2. **Check for accidental caps/num lock**:  
+   Ensure Caps Lock and Num Lock are off—passwords are sensitive to uppercase/lowercase and numbers.
+
+3. **Verify you’re on the right login page**:  
+   Confirm you’re logging into the correct service/website (e.g., not a similar-looking test or old domain).
+
+4. **Wait a few minutes**:  
+   Password resets can take 2-5 minutes to fully sync across systems. Try again after a short break.
+
+5. **Check your email (including spam/junk)**:  
+   If you clicked a reset link in an email, ensure it was the *most recent* one. Older links often expire after 1 hour. If unsure, request a *new* reset and use that link immediately.
+
+6. **Try a different browser or device**:  
+   Occasionally, browser cookies or cache cause issues. Test in an incognito/private window or on your phone.
+
+If none of this works after 2-3 tries, reply here with:  
+- The exact error message you see (if any)  
+- Whether you’re using the reset link or typing the password manually  
+- And I’ll dig deeper—no stress, we’ll figure it out together. 💪",82.8,90.5,90
+45,support,Gemma 4 31B,"A user can't log in after a password reset. Write a calm, step-by-step support reply.","Subject: Assistance with your account login
+
+Hello [User Name],
+
+I am sorry to hear that you're having trouble logging in after resetting your password. We will get this sorted out for you quickly.
+
+To resolve this, please try the following steps in order:
+
+1.  **Clear your browser cache and cookies:** Sometimes your browser remembers your old password and attempts to auto-fill it, which can cause a login failure.
+2.  **Check for typos:** Ensure that Caps Lock is turned off and that there are no accidental spaces at the beginning or end of your email address or password.
+3.  **Use an Incognito/Private window:** Open a private browsing window and try logging in there. This helps determine if a browser extension is interfering with the process.
+4.  **Attempt one more reset:** If the above steps don't work, please request a new password reset link. Once you receive it, please set a new password and try logging in immediately.
+
+If you are still unable to access your account after trying these steps, please reply to this email or send us a screenshot of any error message you are seeing. We will investigate further to ensure you get back into your account.
+
+Best regards,
+
+[Your Name/Company Name]
+Support Team",85.2,86.1,85
+46,support,GPT-OSS 120B,"A customer wants a refund outside the return window. Write a fair, polite response.","Dear [Customer Name],
+
+Thank you for reaching out and letting us know about your experience. I’m sorry to hear that the item you received did not meet your expectations.
+
+Our standard policy allows returns and refunds within [XX] days of purchase, and unfortunately your request falls outside that window. While we aren’t able to process a full refund in this case, we do want to make things right for you.
+
+Here are a few options we can offer:
+
+1. **Store Credit** – We can issue a credit for the purchase amount that you can use toward any future order with us.  
+2. **Partial Refund** – As a goodwill gesture, we can provide a **[percentage or dollar amount]** refund.  
+3. **Exchange** – If you would prefer a different size/color or another product, we’re happy to arrange an exchange at no additional cost to you.
+
+Please let us know which option works best for you, or if there’s another way we can assist. Your satisfaction is important to us, and we appreciate the opportunity to resolve this matter.
+
+Thank you for your understanding, and we look forward to hearing from you soon.
+
+Warm regards,
+
+[Your Name]  
+Customer Support Team  
+[Company Name]  
+[Contact Information]",80.8,90.5,85
+47,support,Nemotron 3 Super,"A customer wants a refund outside the return window. Write a fair, polite response.","Dear [Customer Name],
+
+Thank you for reaching out and for choosing us for your purchase. I understand that you would like a refund for your item, and I’m sorry to hear that it hasn’t met your expectations.
+
+Our standard return policy allows returns within [X] days of purchase, and unfortunately, the request you’ve made falls outside that window. While I’m unable to process a refund in this case, I’d like to offer a couple of alternatives that might help:
+
+- **Store credit**: I can issue a credit for the full purchase amount that you can use toward any future order, with no expiration date.  
+- **Exchange**: If you’d prefer a different size, color, or another product of equal value, I can facilitate an exchange at no additional cost.  
+- **Discount on a future purchase**: As a gesture of goodwill, I can provide a [Y]% discount on your next order.
+
+Please let me know which option works best for you, and I’ll be happy to take care of it right away. If you have any other questions or need further assistance, I’m here to help.
+
+Thank you for your understanding and for giving us the opportunity to serve you.
+
+Warm regards,  
+[Your Name]  
+Customer Support Team  
+[Company Name]  
+[Contact Information]",83.9,90.5,85
+48,support,Gemma 4 31B,"A customer wants a refund outside the return window. Write a fair, polite response.","Subject: Regarding your refund request for [Order Number]
+
+Dear [Customer Name],
+
+Thank you for reaching out to us.
+
+I have looked into your order, and I see that the return window for this purchase ended on [Date]. Because of this, we are unable to process a full refund to your original payment method.
+
+However, we value your business and would like to help. While we cannot offer a cash refund, I would be happy to provide you with [choose one: a store credit / a discount code for your next purchase / an exchange] as a gesture of goodwill.
+
+Please let me know if this works for you, and I will get that processed right away.
+
+Best regards,
+
+[Your Name]
+[Your Company]",78.6,85.5,70

@@ -1,0 +1,18 @@
+[
+  { "task": "general",  "request": "Explain how the Pythagorean theorem can be derived." },
+  { "task": "general",  "request": "What is the difference between weather and climate?" },
+  { "task": "general",  "request": "Summarize how vaccines train the immune system." },
+  { "task": "coding",   "request": "Write a Python function that returns the nth Fibonacci number using memoization." },
+  { "task": "coding",   "request": "Write a JavaScript function to debounce another function by a given delay." },
+  { "task": "coding",   "request": "Explain what a race condition is and show a small example in pseudocode." },
+  { "task": "coding",   "request": "Write a SQL query to find the second-highest salary from an Employees table." },
+  { "task": "content",  "request": "Write a short marketing email for a fitness app launching a 7-day free trial." },
+  { "task": "content",  "request": "Write three punchy taglines for an eco-friendly water bottle." },
+  { "task": "content",  "request": "Draft a LinkedIn post announcing you finished a machine learning course." },
+  { "task": "research", "request": "Compare REST and GraphQL APIs in terms of when to use each." },
+  { "task": "research", "request": "Summarize the main causes of inflation for a non-economist." },
+  { "task": "research", "request": "List the trade-offs between SQL and NoSQL databases." },
+  { "task": "support",  "request": "A customer says their order arrived damaged. Write a helpful support reply." },
+  { "task": "support",  "request": "A user can't log in after a password reset. Write a calm, step-by-step support reply." },
+  { "task": "support",  "request": "A customer wants a refund outside the return window. Write a fair, polite response." }
+]

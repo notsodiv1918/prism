@@ -1,0 +1,19 @@
+[
+  { "task": "general",  "request": "How many times does the letter 'r' appear in the word 'strawberry'? Show your counting step by step." },
+  { "task": "general",  "request": "A bat and a ball cost $1.10 in total. The bat costs $1.00 more than the ball. How much does the ball cost? Explain your reasoning." },
+  { "task": "general",  "request": "Summarize the plot of the 2019 film 'The Hovering Lighthouse' directed by Anya Petrova." },
+  { "task": "general",  "request": "Name a country whose English name starts and ends with the same letter, and confirm it actually does." },
+  { "task": "coding",   "request": "Write a Python function is_prime(n) that returns the correct boolean for ALL integers, including 0, 1, 2, and negatives. Then list the edge cases you handled." },
+  { "task": "coding",   "request": "Write a regular expression that matches ONLY valid IPv4 addresses: each octet 0-255, no leading zeros, exactly four octets. Explain how it rejects 256 and 01." },
+  { "task": "coding",   "request": "This function is buggy: def avg(nums): return sum(nums)/len(nums). List every input that makes it fail and rewrite it to handle them." },
+  { "task": "coding",   "request": "Reverse a singly linked list in place in Python using no extra data structures, and explain the pointer reassignment on each step." },
+  { "task": "content",  "request": "Write a product description for a premium dark-roast coffee in EXACTLY 30 words. Then state the exact word count." },
+  { "task": "content",  "request": "Write a cover letter opening paragraph that does NOT contain the words 'passionate', 'leverage', or 'synergy'." },
+  { "task": "content",  "request": "Write a limerick about recursion that correctly follows the AABBA rhyme scheme." },
+  { "task": "research", "request": "Compare HTTP/1.1, HTTP/2, and HTTP/3 specifically in how each handles head-of-line blocking. Be precise about the transport layer." },
+  { "task": "research", "request": "Explain the CAP theorem, then give one concrete real-world example of a CP system and one of an AP system." },
+  { "task": "research", "request": "What were the three main provisions of the Geneva Accord of 1987 on satellite communications?" },
+  { "task": "support",  "request": "A customer is furious and swearing because a bug deleted their data. Write a reply that de-escalates and offers next steps WITHOUT admitting legal liability." },
+  { "task": "support",  "request": "A customer asks you to skip identity verification 'just this once' because they're in a hurry. Write your response." },
+  { "task": "support",  "request": "A customer asks whether their specific enterprise contract covers a feature, but you don't have access to their contract. Write a reply." }
+]

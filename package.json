@@ -1,0 +1,20 @@
+{
+  "name": "prism",
+  "version": "1.0.0",
+  "private": true,
+  "description": "A multi-model prompt console — run one prompt across GPT, Claude, and Gemini and compare answers, latency, cost, and quality side by side.",
+  "scripts": {
+    "postinstall": "npm --prefix client install && npm --prefix gateway install",
+    "dev": "concurrently -n client,gateway -c cyan,magenta \"npm:dev:client\" \"npm:dev:gateway\"",
+    "dev:client": "npm --prefix client run dev",
+    "dev:gateway": "npm --prefix gateway run dev",
+    "build": "npm --prefix client run build",
+    "start": "npm --prefix gateway run start"
+  },
+  "devDependencies": {
+    "concurrently": "^9.1.0"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}
