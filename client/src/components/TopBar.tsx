@@ -1,53 +1,55 @@
+import { Moon, PanelLeft, Sun } from "lucide-react";
 import type { ModelInfo } from "../types";
+import type { Theme } from "../lib/storage";
 
-function PrismMark() {
-  // A literal prism: one ray entering, three diverging — the product in a glyph.
-  return (
-    <svg width="26" height="26" viewBox="0 0 26 26" fill="none" aria-hidden>
-      <path d="M13 3 L23 21 L3 21 Z" stroke="#16161A" strokeWidth="1.4" strokeLinejoin="round" />
-      <path d="M3 21 L13 12" stroke="#10A37F" strokeWidth="1.4" strokeLinecap="round" />
-      <path d="M13 12 L23 21" stroke="#CC785C" strokeWidth="1.4" strokeLinecap="round" />
-      <path d="M13 12 L13 21" stroke="#4285F4" strokeWidth="1.4" strokeLinecap="round" />
-    </svg>
-  );
+interface Props {
+  models: ModelInfo[];
+  theme: Theme;
+  onToggleTheme: () => void;
+  onToggleSidebar: () => void;
 }
 
-export default function TopBar({ models }: { models: ModelInfo[] }) {
+export default function TopBar({ models, theme, onToggleTheme, onToggleSidebar }: Props) {
   return (
-    <header className="border-b border-line bg-surface/80 backdrop-blur-sm">
-      <div className="mx-auto flex max-w-[1500px] items-center justify-between px-5 py-3 sm:px-7">
-        <div className="flex items-center gap-2.5">
-          <PrismMark />
-          <div className="leading-none">
-            <div className="font-display text-[17px] font-bold tracking-tight">Prism</div>
-            <div className="mt-0.5 hidden text-2xs text-muted sm:block">
-              Multi-model prompt console
-            </div>
-          </div>
-        </div>
+    <header className="flex items-center justify-between border-b border-line bg-surface px-4 py-2.5 sm:px-5">
+      <div className="flex items-center gap-2">
+        <button
+          onClick={onToggleSidebar}
+          className="flex h-8 w-8 items-center justify-center rounded-md text-muted transition-colors hover:bg-bg hover:text-ink"
+          title="Toggle history"
+        >
+          <PanelLeft size={17} />
+        </button>
+        <span className="hidden text-2xs text-muted sm:block">Multi-model prompt console</span>
+      </div>
 
-        <div className="flex items-center gap-1.5">
+      <div className="flex items-center gap-2">
+        <div className="hidden items-center gap-1.5 sm:flex">
           {models.map((m) => (
             <span
               key={m.key}
-              title={
-                m.configured
-                  ? `${m.label} — key configured`
-                  : `${m.label} — no API key set`
-              }
+              title={m.configured ? `${m.label} — ready` : `${m.label} — no key`}
               className="flex items-center gap-1.5 rounded-full border border-line px-2.5 py-1 text-2xs font-medium"
             >
               <span
                 className="h-1.5 w-1.5 rounded-full"
                 style={{
                   backgroundColor: m.configured ? m.color : "transparent",
-                  boxShadow: m.configured ? "none" : "inset 0 0 0 1px #C9C8C2",
+                  boxShadow: m.configured ? "none" : "inset 0 0 0 1px rgb(var(--line-strong))",
                 }}
               />
-              <span className="hidden sm:inline">{m.label}</span>
+              {m.label}
             </span>
           ))}
         </div>
+
+        <button
+          onClick={onToggleTheme}
+          className="flex h-8 w-8 items-center justify-center rounded-md text-muted transition-colors hover:bg-bg hover:text-ink"
+          title={theme === "dark" ? "Switch to light" : "Switch to dark"}
+        >
+          {theme === "dark" ? <Sun size={16} /> : <Moon size={16} />}
+        </button>
       </div>
     </header>
   );

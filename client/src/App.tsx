@@ -1,8 +1,17 @@
-import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import { useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState } from "react";
 import TopBar from "./components/TopBar";
+import Sidebar from "./components/Sidebar";
 import Composer from "./components/Composer";
 import ComparisonGrid from "./components/ComparisonGrid";
 import { fetchConfig, runCompare } from "./lib/api";
+import {
+  loadHistory,
+  loadTheme,
+  persistHistory,
+  saveTheme,
+  type HistoryRun,
+  type Theme,
+} from "./lib/storage";
 import type {
   AppConfig,
   ColumnState,
@@ -15,6 +24,11 @@ export default function App() {
   const [config, setConfig] = useState<AppConfig | null>(null);
   const [loadError, setLoadError] = useState<string | null>(null);
 
+  const [theme, setTheme] = useState<Theme>(loadTheme);
+  const [sidebarOpen, setSidebarOpen] = useState(window.innerWidth >= 768);
+  const [history, setHistory] = useState<HistoryRun[]>(loadHistory);
+  const [activeId, setActiveId] = useState<string | null>(null);
+
   const [task, setTask] = useState<TaskType>("general");
   const [selected, setSelected] = useState<Set<ProviderId>>(new Set());
   const [value, setValue] = useState("");
@@ -24,13 +38,22 @@ export default function App() {
   const [columns, setColumns] = useState<Map<ProviderId, ColumnState>>(new Map());
 
   const abortRef = useRef<AbortController | null>(null);
+  const columnsRef = useRef(columns);
+  useEffect(() => {
+    columnsRef.current = columns;
+  }, [columns]);
+
+  // Apply + persist theme.
+  useLayoutEffect(() => {
+    document.documentElement.dataset.theme = theme;
+    saveTheme(theme);
+  }, [theme]);
 
   // Load model + task config from the gateway.
   useEffect(() => {
     fetchConfig()
       .then((cfg) => {
         setConfig(cfg);
-        // Default selection: every model that has a key, else all of them.
         const configured = cfg.models.filter((m) => m.configured).map((m) => m.key);
         const initial = configured.length ? configured : cfg.models.map((m) => m.key);
         setSelected(new Set(initial));
@@ -51,17 +74,14 @@ export default function App() {
     return config.models.filter((m) => selected.has(m.key)).map((m) => m.key);
   }, [config, selected]);
 
-  const patch = useCallback(
-    (model: ProviderId, fields: Partial<ColumnState>) => {
-      setColumns((prev) => {
-        const next = new Map(prev);
-        const cur = next.get(model);
-        if (cur) next.set(model, { ...cur, ...fields });
-        return next;
-      });
-    },
-    [],
-  );
+  const patch = useCallback((model: ProviderId, fields: Partial<ColumnState>) => {
+    setColumns((prev) => {
+      const next = new Map(prev);
+      const cur = next.get(model);
+      if (cur) next.set(model, { ...cur, ...fields });
+      return next;
+    });
+  }, []);
 
   const onEvent = useCallback(
     (event: StreamEvent) => {
@@ -118,12 +138,38 @@ export default function App() {
     [patch],
   );
 
+  const saveRun = useCallback(
+    (req: string, runTask: TaskType, runModels: ProviderId[]) => {
+      const cols = runModels
+        .map((k) => columnsRef.current.get(k))
+        .filter((c): c is ColumnState => Boolean(c));
+      if (!cols.some((c) => c.text || c.status === "error")) return;
+      const run: HistoryRun = {
+        id: `${Date.now()}`,
+        ts: Date.now(),
+        task: runTask,
+        request: req,
+        models: runModels,
+        columns: cols,
+      };
+      setActiveId(run.id);
+      setHistory((prev) => {
+        const next = [run, ...prev].slice(0, 50);
+        persistHistory(next);
+        return next;
+      });
+    },
+    [],
+  );
+
   const onRun = useCallback(async () => {
     if (!value.trim() || orderedSelected.length === 0) return;
+    const req = value;
+    const runTask = task;
+    const runModels = [...orderedSelected];
 
-    // Seed empty columns in display order so layout is stable before tokens land.
     const seeded = new Map<ProviderId, ColumnState>();
-    for (const key of orderedSelected) {
+    for (const key of runModels) {
       const info = config!.models.find((m) => m.key === key)!;
       seeded.set(key, {
         key,
@@ -134,29 +180,23 @@ export default function App() {
       });
     }
     setColumns(seeded);
+    setActiveId(null);
     setHasRun(true);
     setRunning(true);
 
     const controller = new AbortController();
     abortRef.current = controller;
     try {
-      await runCompare({
-        request: value,
-        task,
-        models: orderedSelected,
-        onEvent,
-        signal: controller.signal,
-      });
+      await runCompare({ request: req, task: runTask, models: runModels, onEvent, signal: controller.signal });
     } catch (err) {
       if ((err as Error).name !== "AbortError") {
-        for (const key of orderedSelected) {
-          patch(key, { status: "error", error: (err as Error).message });
-        }
+        for (const key of runModels) patch(key, { status: "error", error: (err as Error).message });
       }
     } finally {
       setRunning(false);
+      saveRun(req, runTask, runModels);
     }
-  }, [value, orderedSelected, task, config, onEvent, patch]);
+  }, [value, orderedSelected, task, config, onEvent, patch, saveRun]);
 
   const onStop = useCallback(() => {
     abortRef.current?.abort();
@@ -164,12 +204,46 @@ export default function App() {
     setColumns((prev) => {
       const next = new Map(prev);
       for (const [k, v] of next) {
-        if (v.status === "streaming" || v.status === "starting") {
-          next.set(k, { ...v, status: "done" });
-        }
+        if (v.status === "streaming" || v.status === "starting") next.set(k, { ...v, status: "done" });
       }
       return next;
     });
+  }, []);
+
+  const onNewRun = useCallback(() => {
+    abortRef.current?.abort();
+    setRunning(false);
+    setColumns(new Map());
+    setHasRun(false);
+    setActiveId(null);
+    setValue("");
+    if (window.innerWidth < 768) setSidebarOpen(false);
+  }, []);
+
+  const onSelectRun = useCallback(
+    (run: HistoryRun) => {
+      abortRef.current?.abort();
+      setRunning(false);
+      setValue(run.request);
+      setTask(run.task);
+      setSelected(new Set(run.models));
+      const map = new Map<ProviderId, ColumnState>();
+      for (const c of run.columns) map.set(c.key, c);
+      setColumns(map);
+      setHasRun(true);
+      setActiveId(run.id);
+      if (window.innerWidth < 768) setSidebarOpen(false);
+    },
+    [],
+  );
+
+  const onDeleteRun = useCallback((id: string) => {
+    setHistory((prev) => {
+      const next = prev.filter((r) => r.id !== id);
+      persistHistory(next);
+      return next;
+    });
+    setActiveId((cur) => (cur === id ? null : cur));
   }, []);
 
   if (loadError) {
@@ -199,24 +273,49 @@ export default function App() {
     .filter((c): c is ColumnState => Boolean(c));
 
   return (
-    <div className="flex h-full flex-col">
-      <TopBar models={config.models} />
-      <main className="mx-auto flex w-full max-w-[1500px] flex-1 flex-col gap-4 overflow-hidden px-5 py-4 sm:px-7">
-        <Composer
-          tasks={config.tasks}
+    <div className="flex h-full overflow-hidden">
+      <Sidebar
+        open={sidebarOpen}
+        history={history}
+        activeId={activeId}
+        onClose={() => setSidebarOpen(false)}
+        onNewRun={onNewRun}
+        onSelect={onSelectRun}
+        onDelete={onDeleteRun}
+      />
+
+      <div className="flex min-w-0 flex-1 flex-col">
+        <TopBar
           models={config.models}
-          task={task}
-          setTask={setTask}
-          selected={selected}
-          toggleModel={toggleModel}
-          value={value}
-          setValue={setValue}
-          running={running}
-          onRun={onRun}
-          onStop={onStop}
+          theme={theme}
+          onToggleTheme={() => setTheme((t) => (t === "dark" ? "light" : "dark"))}
+          onToggleSidebar={() => setSidebarOpen((v) => !v)}
         />
-        <ComparisonGrid columns={columnList} hasRun={hasRun} />
-      </main>
+
+        <div className="flex-1 overflow-y-auto scroll-thin">
+          <div className="mx-auto max-w-[1500px] px-4 py-4 sm:px-6">
+            <ComparisonGrid columns={columnList} hasRun={hasRun} />
+          </div>
+        </div>
+
+        <div className="border-t border-line bg-bg">
+          <div className="mx-auto max-w-[1500px] px-4 py-3 sm:px-6">
+            <Composer
+              tasks={config.tasks}
+              models={config.models}
+              task={task}
+              setTask={setTask}
+              selected={selected}
+              toggleModel={toggleModel}
+              value={value}
+              setValue={setValue}
+              running={running}
+              onRun={onRun}
+              onStop={onStop}
+            />
+          </div>
+        </div>
+      </div>
     </div>
   );
 }

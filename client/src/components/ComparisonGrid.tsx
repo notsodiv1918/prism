@@ -10,7 +10,7 @@ interface Props {
 export default function ComparisonGrid({ columns, hasRun }: Props) {
   if (!hasRun) {
     return (
-      <div className="flex flex-1 items-center justify-center">
+      <div className="flex min-h-[60vh] items-center justify-center">
         <div className="max-w-md px-6 text-center">
           <div className="mx-auto mb-4 flex h-11 w-11 items-center justify-center rounded-xl border border-line bg-surface">
             <Columns3 size={20} className="text-faint" strokeWidth={1.6} />
@@ -31,7 +31,7 @@ export default function ComparisonGrid({ columns, hasRun }: Props) {
     cols >= 3 ? "lg:grid-cols-3" : cols === 2 ? "lg:grid-cols-2" : "lg:grid-cols-1";
 
   return (
-    <div className={`grid flex-1 grid-cols-1 gap-3.5 md:grid-cols-2 ${gridCols} min-h-0`}>
+    <div className={`grid grid-cols-1 items-start gap-3.5 md:grid-cols-2 ${gridCols}`}>
       {columns.map((c) => (
         <ModelColumn key={c.key} state={c} />
       ))}

@@ -42,7 +42,7 @@ function StatusDot({ state }: { state: ColumnState }) {
     return <span className="text-2xs text-faint">done</span>;
   }
   if (state.status === "error") {
-    return <span className="text-2xs text-[#C0564A]">error</span>;
+    return <span className="text-2xs text-danger">error</span>;
   }
   return null;
 }
@@ -52,7 +52,7 @@ export default function ModelColumn({ state }: { state: ColumnState }) {
   const streaming = state.status === "streaming" || state.status === "starting";
 
   return (
-    <div className="flex min-h-0 flex-col overflow-hidden rounded-xl border border-line bg-surface">
+    <div className="flex flex-col overflow-hidden rounded-xl border border-line bg-surface animate-rise">
       {/* Color rule — the model's identity, with a live sweep while streaming. */}
       <div className="relative h-[3px] overflow-hidden" style={{ backgroundColor: `${state.color}22` }}>
         <div className="absolute inset-y-0 left-0 w-full" style={{ backgroundColor: state.color, opacity: streaming ? 0.35 : 1 }} />
@@ -102,9 +102,9 @@ export default function ModelColumn({ state }: { state: ColumnState }) {
       )}
 
       {/* Body */}
-      <div className="min-h-0 flex-1 overflow-auto px-4 py-3.5 scroll-thin">
+      <div className="px-4 py-3.5">
         {state.status === "error" ? (
-          <div className="flex items-start gap-2 rounded-lg bg-[#FBF1EF] px-3 py-2.5 text-[13px] text-[#9C4A3F]">
+          <div className="flex items-start gap-2 rounded-lg bg-danger-bg px-3 py-2.5 text-[13px] text-danger">
             <AlertCircle size={15} className="mt-0.5 shrink-0" />
             <span>{state.error}</span>
           </div>

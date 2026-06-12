@@ -2,7 +2,41 @@
 @tailwind components;
 @tailwind utilities;
 
+/* ── Theme tokens (RGB channels so Tailwind alpha utilities work) ── */
 @layer base {
+  :root {
+    --bg: 251 251 250;
+    --surface: 255 255 255;
+    --ink: 22 22 26;
+    --muted: 107 107 114;
+    --faint: 154 154 162;
+    --line: 231 230 226;
+    --line-strong: 216 215 210;
+    --accent: 204 120 92;
+    --danger: 156 74 63;
+    --danger-bg: 251 241 239;
+    --inline-code: 241 240 236;
+    --code-bg: 22 22 26;
+    --scroll-thumb: 224 223 218;
+  }
+
+  /* Claude-style warm dark */
+  :root[data-theme="dark"] {
+    --bg: 38 38 36;
+    --surface: 47 46 43;
+    --ink: 236 233 227;
+    --muted: 168 163 154;
+    --faint: 121 117 109;
+    --line: 60 58 54;
+    --line-strong: 76 73 68;
+    --accent: 209 130 102;
+    --danger: 224 145 135;
+    --danger-bg: 58 41 38;
+    --inline-code: 54 51 47;
+    --code-bg: 26 25 23;
+    --scroll-thumb: 76 73 68;
+  }
+
   :root {
     font-synthesis: none;
     text-rendering: optimizeLegibility;
@@ -19,50 +53,40 @@
     @apply bg-bg text-ink font-sans antialiased;
     margin: 0;
     letter-spacing: -0.006em;
+    transition: background-color 0.2s ease, color 0.2s ease;
   }
 
   ::selection {
-    background: #16161a;
-    color: #fbfbfa;
+    background: rgb(var(--ink));
+    color: rgb(var(--bg));
   }
 }
 
-/* Quiet, precise scrollbars that match the instrument aesthetic. */
 @layer utilities {
   .scroll-thin {
     scrollbar-width: thin;
-    scrollbar-color: #d8d7d2 transparent;
+    scrollbar-color: rgb(var(--scroll-thumb)) transparent;
   }
   .scroll-thin::-webkit-scrollbar {
     width: 8px;
     height: 8px;
   }
   .scroll-thin::-webkit-scrollbar-thumb {
-    background: #e0dfda;
+    background: rgb(var(--scroll-thumb));
     border-radius: 999px;
-  }
-  .scroll-thin::-webkit-scrollbar-thumb:hover {
-    background: #cfcec8;
   }
   .scroll-thin::-webkit-scrollbar-track {
     background: transparent;
   }
 }
 
-/* ── Markdown response styling ────────────────────────────────
-   Tight, readable prose for streamed model output. */
+/* ── Markdown response styling ── */
 .prose-prism {
   @apply text-[14px] leading-[1.65] text-ink;
 }
-.prose-prism > *:first-child {
-  margin-top: 0;
-}
-.prose-prism > *:last-child {
-  margin-bottom: 0;
-}
-.prose-prism p {
-  margin: 0 0 0.85em;
-}
+.prose-prism > *:first-child { margin-top: 0; }
+.prose-prism > *:last-child { margin-bottom: 0; }
+.prose-prism p { margin: 0 0 0.85em; }
 .prose-prism h1,
 .prose-prism h2,
 .prose-prism h3,
@@ -75,16 +99,9 @@
 .prose-prism h2 { font-size: 1.08rem; }
 .prose-prism h3 { font-size: 0.98rem; }
 .prose-prism ul,
-.prose-prism ol {
-  margin: 0 0 0.85em;
-  padding-left: 1.25em;
-}
-.prose-prism li {
-  margin: 0.2em 0;
-}
-.prose-prism li::marker {
-  color: #9a9aa2;
-}
+.prose-prism ol { margin: 0 0 0.85em; padding-left: 1.25em; }
+.prose-prism li { margin: 0.2em 0; }
+.prose-prism li::marker { color: rgb(var(--faint)); }
 .prose-prism a {
   @apply text-ink underline underline-offset-2 decoration-line-strong;
 }
@@ -94,13 +111,13 @@
 }
 .prose-prism code {
   @apply font-mono text-[12.5px];
-  background: #f1f0ec;
+  background: rgb(var(--inline-code));
   padding: 0.1em 0.35em;
   border-radius: 4px;
 }
 .prose-prism pre {
   @apply font-mono text-[12.5px] scroll-thin;
-  background: #16161a;
+  background: rgb(var(--code-bg));
   color: #ededf0;
   border-radius: 8px;
   padding: 0.85rem 0.95rem;
@@ -125,26 +142,13 @@
 .prose-prism td {
   @apply border border-line px-2.5 py-1.5 text-left;
 }
-.prose-prism th {
-  @apply bg-bg font-semibold;
-}
-.prose-prism hr {
-  @apply border-line;
-  margin: 1.2em 0;
-}
+.prose-prism th { @apply bg-bg font-semibold; }
+.prose-prism hr { @apply border-line; margin: 1.2em 0; }
 
-/* highlight.js — muted palette tuned for the dark code blocks. */
-.hljs-comment,
-.hljs-quote { color: #8a8a93; font-style: italic; }
-.hljs-keyword,
-.hljs-selector-tag,
-.hljs-built_in { color: #c99a6b; }
-.hljs-string,
-.hljs-attr { color: #9ec79a; }
-.hljs-number,
-.hljs-literal { color: #d98c8c; }
-.hljs-title,
-.hljs-name,
-.hljs-function { color: #8ab4d8; }
-.hljs-type,
-.hljs-class { color: #c0a0d8; }
+/* highlight.js — muted palette for dark code blocks (both themes) */
+.hljs-comment, .hljs-quote { color: #8a8a93; font-style: italic; }
+.hljs-keyword, .hljs-selector-tag, .hljs-built_in { color: #c99a6b; }
+.hljs-string, .hljs-attr { color: #9ec79a; }
+.hljs-number, .hljs-literal { color: #d98c8c; }
+.hljs-title, .hljs-name, .hljs-function { color: #8ab4d8; }
+.hljs-type, .hljs-class { color: #c0a0d8; }

@@ -48,8 +48,8 @@ export const MODELS: Record<ProviderId, ModelSpec> = {
   },
   anthropic: {
     key: "anthropic",
-    id: "z-ai/glm-4.5-air:free",
-    label: "GLM 4.5 Air",
+    id: "nex-agi/nex-n2-pro:free",   // ← your new free model
+    label: "Nex N2 Pro",              // ← update label
     color: "#8B5CF6",
     kind: "openai",
     apiKeyEnv: "OPENROUTER_API_KEY",
